@@ -1,3 +1,18 @@
+defmodule FacebookMessenger.Referral do
+  @moduledoc """
+    Facebook referral structure
+  """
+
+  @derive [Poison.Encoder]
+  defstruct [:ref, :source, :type]
+
+  @type t :: %FacebookMessenger.Referral{
+    ref: String.t,
+    source: String.t,
+    type: String.t
+  }
+end
+
 defmodule FacebookMessenger.Attachment do
   @moduledoc """
   Messenger attachment structure
@@ -77,10 +92,11 @@ defmodule FacebookMessenger.Postback do
     """
 
     @derive [Poison.Encoder]
-    defstruct [:payload]
+    defstruct [:payload, :referral]
 
     @type t :: %FacebookMessenger.Postback{
-        payload: String.t
+        payload: String.t,
+        referral: FacebookMessenger.Referral
     }
 end
 
