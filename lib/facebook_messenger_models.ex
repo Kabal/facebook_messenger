@@ -54,6 +54,7 @@ defmodule FacebookMessenger.Message do
     mid: String.t,
     seq: integer,
     text: String.t,
+    nlp: payload: %{},
     attachments: [FacebookMessenger.Attachment.t],
     quick_replies: [FacebookMessenger.QuickReply.t],
     quick_reply: FacebookMessenger.QuickReply.t
