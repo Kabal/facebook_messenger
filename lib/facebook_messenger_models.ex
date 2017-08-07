@@ -48,13 +48,13 @@ defmodule FacebookMessenger.Message do
   """
 
   @derive [Poison.Encoder]
-  defstruct [:mid, :seq, :text, :attachments, :quick_replies, :quick_reply]
+  defstruct [:mid, :seq, :text, :nlp, :attachments, :quick_replies, :quick_reply]
 
   @type t :: %FacebookMessenger.Message{
     mid: String.t,
     seq: integer,
     text: String.t,
-    nlp: payload: %{},
+    nlp: %{},
     attachments: [FacebookMessenger.Attachment.t],
     quick_replies: [FacebookMessenger.QuickReply.t],
     quick_reply: FacebookMessenger.QuickReply.t
