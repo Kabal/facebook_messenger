@@ -120,7 +120,7 @@ defmodule FacebookMessenger.Messaging do
   Facebook messaging structure, contains the sender, recepient and message info
   """
   @derive [Poison.Encoder]
-  defstruct [:sender, :recipient, :timestamp, :message, :optin, :postback, :account_linking]
+  defstruct [:sender, :recipient, :timestamp, :message, :optin, :postback, :account_linking, :referral]
 
   @type t :: %FacebookMessenger.Messaging{
     sender: FacebookMessenger.User.t,
@@ -130,6 +130,7 @@ defmodule FacebookMessenger.Messaging do
     optin: FacebookMessenger.Optin.t,
     postback: FacebookMessenger.Postback.t,
     account_linking: FacebookMessenger.AccountLinking.t,
+    referral: FacebookMessenger.Referral.t
   }
 end
 
@@ -217,6 +218,7 @@ defmodule FacebookMessenger.Response do
       },
       "optin": %FacebookMessenger.Optin{},
       "postback": %FacebookMessenger.Postback{},
+      "referral": %FacebookMessenger.Referral{},
       "account_linking": %FacebookMessenger.AccountLinking{},
     }
     %FacebookMessenger.Response{
