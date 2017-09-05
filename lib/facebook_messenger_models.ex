@@ -1,3 +1,18 @@
+defmodule FacebookMessenger.Referral do
+  @moduledoc """
+    Facebook referral structure
+  """
+
+  @derive [Poison.Encoder]
+  defstruct [:ref, :source, :type]
+
+  @type t :: %FacebookMessenger.Referral{
+    ref: String.t,
+    source: String.t,
+    type: String.t
+  }
+end
+
 defmodule FacebookMessenger.Attachment do
   @moduledoc """
   Messenger attachment structure
@@ -33,12 +48,13 @@ defmodule FacebookMessenger.Message do
   """
 
   @derive [Poison.Encoder]
-  defstruct [:mid, :seq, :text, :attachments, :quick_replies, :quick_reply]
+  defstruct [:mid, :seq, :text, :nlp, :attachments, :quick_replies, :quick_reply]
 
   @type t :: %FacebookMessenger.Message{
     mid: String.t,
     seq: integer,
     text: String.t,
+    nlp: %{},
     attachments: [FacebookMessenger.Attachment.t],
     quick_replies: [FacebookMessenger.QuickReply.t],
     quick_reply: FacebookMessenger.QuickReply.t
@@ -77,10 +93,11 @@ defmodule FacebookMessenger.Postback do
     """
 
     @derive [Poison.Encoder]
-    defstruct [:payload]
+    defstruct [:payload, :referral]
 
     @type t :: %FacebookMessenger.Postback{
-        payload: String.t
+        payload: String.t,
+        referral: FacebookMessenger.Referral
     }
 end
 
@@ -103,7 +120,7 @@ defmodule FacebookMessenger.Messaging do
   Facebook messaging structure, contains the sender, recepient and message info
   """
   @derive [Poison.Encoder]
-  defstruct [:sender, :recipient, :timestamp, :message, :optin, :postback, :account_linking]
+  defstruct [:sender, :recipient, :timestamp, :message, :optin, :postback, :account_linking, :referral]
 
   @type t :: %FacebookMessenger.Messaging{
     sender: FacebookMessenger.User.t,
@@ -113,6 +130,7 @@ defmodule FacebookMessenger.Messaging do
     optin: FacebookMessenger.Optin.t,
     postback: FacebookMessenger.Postback.t,
     account_linking: FacebookMessenger.AccountLinking.t,
+    referral: FacebookMessenger.Referral.t
   }
 end
 
@@ -200,6 +218,7 @@ defmodule FacebookMessenger.Response do
       },
       "optin": %FacebookMessenger.Optin{},
       "postback": %FacebookMessenger.Postback{},
+      "referral": %FacebookMessenger.Referral{},
       "account_linking": %FacebookMessenger.AccountLinking{},
     }
     %FacebookMessenger.Response{
